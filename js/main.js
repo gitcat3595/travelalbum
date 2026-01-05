@@ -67,15 +67,6 @@ const albumsData = {
 let currentAlbum = null;
 let swiperInstance = null;
 
-// ========================================
-// INITIALIZATION
-// ========================================
-
-document.addEventListener('DOMContentLoaded', () => {
-    loadCustomAlbums();
-    initializeCarousel();
-    setupAlbumClickHandlers();
-});
 
 // ========================================
 // LOAD CUSTOM ALBUMS FROM LOCALSTORAGE
@@ -213,10 +204,15 @@ function setupAlbumClickHandlers() {
 // ========================================
 
 function openAlbum(albumId) {
+
+    console.log('openAlbum called:', albumId);
+    console.log('albumsData[albumId]:', albumsData[albumId]);
+    
     if (!albumsData[albumId]) return;
     
     currentAlbum = albumsData[albumId];
-    
+
+        
     // Show book opening animation
     const overlay = document.querySelector('.book-opening-overlay');
     overlay.classList.add('active');
@@ -280,7 +276,7 @@ function createPhotoBlock(photo, index) {
     
     const img = document.createElement('img');
     img.src = photo.url;
-    img.alt = photo.caption;
+    img.alt = photo.caption || '';
     img.loading = 'lazy';
     
     // 横長判定
@@ -289,7 +285,6 @@ function createPhotoBlock(photo, index) {
             block.classList.add('landscape');
         }
     };
-
     
     // Add error handling for missing images
     img.onerror = function() {
@@ -298,11 +293,20 @@ function createPhotoBlock(photo, index) {
     
     const caption = document.createElement('p');
     caption.className = 'photo-caption';
-    caption.textContent = photo.caption;
+    caption.textContent = photo.caption || '';
     
     wrapper.appendChild(img);
     block.appendChild(wrapper);
     block.appendChild(caption);
+
+     wrapper.appendChild(img);
+    block.appendChild(wrapper);
+    block.appendChild(caption);
+    
+    // ダブルクリックで全体表示
+    block.addEventListener('dblclick', function() {
+        this.classList.toggle('expanded');
+    });
     
     return block;
 }
@@ -444,12 +448,51 @@ if ('IntersectionObserver' in window) {
         });
     });
     
-    // Observe all lazy images
-    document.addEventListener('DOMContentLoaded', () => {
-        const lazyImages = document.querySelectorAll('img[data-src]');
-        lazyImages.forEach(img => imageObserver.observe(img));
-    });
-}
+document.addEventListener('DOMContentLoaded', () => {
+    const lazyImages = document.querySelectorAll('img[data-src]');
+    lazyImages.forEach(img => imageObserver.observe(img));
+});
+
+// ========================================
+// INITIALIZE
+// ========================================
+
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('[MAIN] Initializing...');
+    
+    // Load custom albums
+    loadCustomAlbums();
+    
+    // Initialize carousel
+    if (typeof Swiper !== 'undefined') {
+        const swiper = new Swiper('.album-carousel', {
+            effect: 'coverflow',
+            grabCursor: true,
+            centeredSlides: true,
+            slidesPerView: 'auto',
+            spaceBetween: 30,
+            loop: false,
+            coverflowEffect: {
+                rotate: 20,
+                stretch: 80,
+                depth: 200,
+                modifier: 1,
+                slideShadows: true,
+            },
+            speed: 600
+        });
+    }
+    
+    // Setup click handlers
+    setupAlbumClickHandlers();
+    
+    // Lazy load images
+    const lazyImages = document.querySelectorAll('img[data-src]');
+    lazyImages.forEach(img => imageObserver.observe(img));
+    
+    console.log('[MAIN] Initialization complete');
+});
+
 
 // ========================================
 // PERFORMANCE OPTIMIZATION
@@ -478,5 +521,48 @@ const throttledParallax = debounce(() => {
 // ========================================
 
 console.log('%c Family Albums ', 'background: #2C2416; color: #B8975A; font-size: 24px; font-weight: bold; padding: 10px;');
-console.log('%c Timeless Memories, Elegantly Preserved ', 'background: #F5F1E8; color: #1A1511; font-size: 14px; padding: 5px;');
-console.log('%c Built with ❤️ for luxury and simplicity ', 'color: #6B5D52; font-size: 12px; font-style: italic;');
+console.log('%c timeless memories, elegantly preserved ', 'background: #F5F1E8; color: #1A1511; font-size: 14px; padding: 5px;');
+console.log('%c Built with ❤️ for simplicity and calmness ', 'color: #6B5D52; font-size: 12px; font-style: italic;');
+}
+// ========================================
+// INITIALIZE
+// ========================================
+
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('[MAIN] Initializing...');
+    
+    // Load custom albums
+    loadCustomAlbums();
+    
+    // Initialize carousel
+    if (typeof Swiper !== 'undefined') {
+        const swiper = new Swiper('.album-carousel', {
+            effect: 'coverflow',
+            grabCursor: true,
+            centeredSlides: true,
+            slidesPerView: 'auto',
+            spaceBetween: 30,
+            loop: false,
+            coverflowEffect: {
+                rotate: 20,
+                stretch: 80,
+                depth: 200,
+                modifier: 1,
+                slideShadows: true,
+            },
+            speed: 600
+        });
+    }
+    
+    // Setup click handlers
+    setupAlbumClickHandlers();
+    
+    // Lazy load images
+    const lazyImages = document.querySelectorAll('img[data-src]');
+    if (typeof imageObserver !== 'undefined') {
+        lazyImages.forEach(img => imageObserver.observe(img));
+    }
+    
+    console.log('[MAIN] Initialization complete');
+});
+// ========================================

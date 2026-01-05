@@ -291,6 +291,9 @@ body {
 }
 
 .back-button {
+    
+    top: 40px;
+    left: 40px;
     display: inline-flex;
     align-items: center;
     gap: 8px;
@@ -301,10 +304,11 @@ body {
     background: none;
     border: none;
     cursor: pointer;
-    padding: 12px 0;
-    margin-bottom: var(--spacing-lg);
-    transition: color var(--transition-fast);
+    padding: 12px 20px;
+    transition: all var(--transition-fast);
+    z-index: 100;
 }
+
 
 .back-button:hover {
     color: var(--color-text-primary);
@@ -324,7 +328,13 @@ body {
     padding: var(--spacing-xl) var(--spacing-md);
     border-bottom: 1px solid var(--color-accent-gold);
     margin-bottom: var(--spacing-xl);
+    min-height: 40vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
+
+
 
 .album-main-title {
     font-family: var(--font-serif);
@@ -365,12 +375,89 @@ body {
     align-items: center;
 }
 
+
+/* ========== PHOTO BLOCKS ========== */
 .photo-block {
     width: 80%;
     max-width: 1000px;
+    margin: 0 auto var(--spacing-xl);
     animation: fadeInUp 0.6s ease-out;
     animation-fill-mode: both;
 }
+
+/* 通常表示: 縦長 4:5 */
+.photo-block .photo-wrapper {
+    width: 100%;
+    max-width: 800px;
+    height: 1000px;
+    overflow: hidden;
+    margin: 0 auto;
+    border-radius: 4px;
+    box-shadow: 0 10px 40px rgba(26, 21, 17, 0.15);
+    transition: all 0.5s ease;
+    cursor: pointer;
+}
+
+.photo-block .photo-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: all 0.5s ease;
+}
+
+/* ダブルクリック後: オリジナル比率 + 写真風の枠 */
+.photo-block.expanded {
+    width: 100%;
+    max-width: none;
+}
+
+.photo-block.expanded .photo-wrapper {
+    max-width: 90vw;
+    max-height: 90vh;
+    height: auto;
+    padding: 40px;
+    background: #FFFFFF;
+    box-shadow: 
+        0 0 0 1px rgba(0,0,0,0.1),
+        0 20px 60px rgba(26, 21, 17, 0.3);
+    cursor: zoom-out;
+}
+
+.photo-block.expanded .photo-wrapper img {
+    width: 100%;
+    height: auto;
+    max-height: calc(90vh - 80px);
+    object-fit: contain;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* 横長写真用（使わない予定だが念のため残す） */
+.photo-block.landscape .photo-wrapper {
+    max-width: 1200px;
+}
+
+.photo-block.landscape .photo-wrapper img {
+    width: 100%;
+    height: auto;
+    max-height: 600px;
+    object-fit: contain;
+}
+
+/* レスポンシブ */
+@media (max-width: 900px) {
+    .photo-block .photo-wrapper {
+        max-width: 90vw;
+        height: calc(90vw * 5 / 4);
+    }
+    
+    .photo-block.expanded .photo-wrapper {
+        padding: 20px;
+    }
+}
+
+
+
 
 .photo-block:nth-child(1) { animation-delay: 0.1s; }
 .photo-block:nth-child(2) { animation-delay: 0.2s; }
@@ -398,6 +485,9 @@ body {
 }
 
 .photo-caption {
+    display: none;
+    /*元のスタイル（後で使う用）
+    text-align: center;
     font-family: var(--font-sans);
     font-size: 14px;
     font-weight: 300;
@@ -405,6 +495,7 @@ body {
     color: var(--color-text-secondary);
     text-align: center;
     margin-top: var(--spacing-sm);
+    */
 }
 
 /* ========== ANIMATIONS ========== */
@@ -420,7 +511,7 @@ body {
 @keyframes fadeInUp {
     from {
         opacity: 0;
-        transform: translateY(30px);
+        transform: translateY(50px);
     }
     to {
         opacity: 1;
@@ -544,4 +635,77 @@ body {
     body {
         background: white;
     }
+}
+
+
+/* ========== CLOSE BUTTON ========== */
+.album-close-section {
+    text-align: center;
+    padding: var(--spacing-xl) var(--spacing-md);
+    margin-top: var(--spacing-xl);
+    border-top: 1px solid var(--color-accent-gold);
+}
+
+.close-album-button {
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-primary);
+    background-color: transparent;
+    border: 1px solid var(--color-text-secondary);
+    padding: 16px 40px;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all var(--transition-medium);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.close-album-button:hover {
+    background-color: var(--color-accent-dark);
+    color: var(--color-bg-primary);
+    border-color: var(--color-accent-gold);
+}
+
+.close-album-button span {
+    font-size: 18px;
+}
+
+/* ========== SITE FOOTER ========== */
+.site-footer {
+    text-align: center;
+    padding: var(--spacing-lg) var(--spacing-md);
+    border-top: 1px solid var(--color-accent-gold);
+}
+
+.site-credit {
+    font-family: var(--font-serif-italic);
+    font-size: 14px;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--color-text-secondary);
+    letter-spacing: 0.02em;
+}
+
+.site-credit a {
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+.site-credit a:hover {
+    color: var(--color-accent-gold);
+}
+
+.site-credit .credit-link {
+    color: var(--color-accent-gold);
+    font-weight: 500;
+}
+
+.site-credit .credit-link:hover {
+    color: var(--color-accent-dark);
+    text-decoration: underline;
 }

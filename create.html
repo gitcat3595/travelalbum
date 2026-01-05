@@ -46,7 +46,7 @@
 
                 <!-- Catchphrase -->
                 <div class="form-section">
-                    <label for="catchphrase" class="form-label">Catchphrase</label>
+                    <label for="catchphrase" class="form-label">Tag line of your memory</label>
                     <input 
                         type="text" 
                         id="catchphrase" 
@@ -58,11 +58,11 @@
                     <p class="form-hint">A poetic description in quotes</p>
                 </div>
 
-                <!-- Location & Date Row -->
+                <!-- Location -->
                 <div class="form-row">
                     <!-- Country -->
                     <div class="form-section form-half">
-                        <label for="country" class="form-label">Country</label>
+                        <label for="country" class="form-label">Destination</label>
                         <input 
                             type="text" 
                             id="country" 
@@ -77,13 +77,11 @@
                     <div class="form-section form-half">
                         <label for="year" class="form-label">Year</label>
                         <input 
-                            type="number" 
+                            type="text" 
                             id="year" 
                             name="year"
                             class="form-input" 
                             placeholder="2025"
-                            min="1900"
-                            max="2100"
                             required
                         >
                     </div>
@@ -98,23 +96,11 @@
                         name="season"
                         class="form-input" 
                         placeholder="Summer"
-                        required
+                    
                     >
-                    <p class="form-hint">e.g., Summer, December, Spring</p>
+                    <p class="form-hint">Optional: Summer, December, 10-15 June</p>
                 </div>
 
-                <!-- Date -->
-                <div class="form-section">
-                    <label for="date" class="form-label">Date Range</label>
-                    <input 
-                        type="text" 
-                        id="date" 
-                        name="date"
-                        class="form-input" 
-                        placeholder="June 15-20, 2025"
-                    >
-                    <p class="form-hint">Optional: Specific date range</p>
-                </div>
 
                 <!-- Divider -->
                 <div class="form-divider"></div>
@@ -122,7 +108,7 @@
                 <!-- Photo Upload Section -->
                 <div class="form-section photo-upload-section">
                     <label class="form-label">Album Photos</label>
-                    <p class="form-hint photo-hint">Upload 1-12 photos for your album. First photo will be the cover.</p>
+                    <p class="form-hint photo-hint">Upload 1-12 memorable moments for your album.</p>
                     
                     <!-- Drag & Drop Area -->
                     <div class="upload-area" id="upload-area">
@@ -137,7 +123,7 @@
                         <p class="upload-text">or</p>
                         <button type="button" class="browse-button" id="browse-button">Browse Files</button>
                         <input type="file" id="file-input" accept="image/*" multiple hidden>
-                        <p class="upload-requirements">JPG, PNG, or WebP • Max 50MB each • 1-12 photos</p>
+                        <p class="upload-requirements">JPG or PNG • 1-12 photos</p>
                     </div>
 
                     <!-- Photo Preview Grid -->
@@ -159,9 +145,10 @@
             </form>
         </div>
 
-        <!-- Footer -->
+       <!-- Footer -->
         <footer class="create-footer">
             <p>Family Albums — Timeless Memories, Elegantly Preserved</p>
+            <p class="site-credit" style="margin-top: 16px;">Thoughtfully crafted by <a href="https://x.com/kellyanyang" target="_blank" rel="noopener" class="credit-link">kellyanyang</a> © 2025</p>
         </footer>
     </div>
 

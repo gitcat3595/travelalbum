@@ -414,9 +414,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const catchphrase = document.getElementById('catchphrase').value.trim();
         const country = document.getElementById('country').value.trim();
         const year = document.getElementById('year').value.trim();
-        const season = document.getElementById('season').value.trim();
         
-        const allFilled = title && catchphrase && country && year && season;
+        
+        const allFilled = title && catchphrase && country && year;
+        
         const hasPhotos = uploadedPhotos.length >= MIN_PHOTOS;
         
         console.log('Validation:', { allFilled, hasPhotos, photoCount: uploadedPhotos.length });
@@ -474,15 +475,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         // Get form data
+        const seasonValue = document.getElementById('season') ? document.getElementById('season').value.trim() : '';
+        
         const albumData = {
             id: `album-${Date.now()}`,
             title: document.getElementById('album-title').value.trim().toUpperCase(),
             catchphrase: document.getElementById('catchphrase').value.trim(),
             country: document.getElementById('country').value.trim(),
             year: document.getElementById('year').value.trim(),
-            season: document.getElementById('season').value.trim(),
-            date: document.getElementById('date').value.trim(),
-            photos: orderedPhotos, // 並び替え済み
+            season: seasonValue,
+            photos: orderedPhotos,
             createdAt: new Date().toISOString()
         };
         
