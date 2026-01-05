@@ -149,5 +149,21 @@
     
     <!-- Main JS -->
     <script src="js/main.js"></script>
+    
+    <script>
+        // Force initial page state - immediate
+        (function() {
+            const topPage = document.getElementById('top-page');
+            const albumPage = document.getElementById('album-page');
+            
+            if (topPage) topPage.classList.add('active');
+            if (albumPage) albumPage.classList.remove('active');
+            
+            console.log('Page state forced:', {
+                topActive: topPage?.classList.contains('active'),
+                albumActive: albumPage?.classList.contains('active')
+            });
+        })();
+    </script>
 </body>
 </html>

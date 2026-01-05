@@ -273,11 +273,13 @@ function createPhotoBlock(photo, index) {
     
     const wrapper = document.createElement('div');
     wrapper.className = 'photo-wrapper';
+    wrapper.style.cssText = 'width: 800px; height: 1000px; margin: 0 auto; overflow: hidden; position: relative;';
     
     const img = document.createElement('img');
     img.src = photo.url;
     img.alt = photo.caption || '';
     img.loading = 'lazy';
+    img.style.cssText = 'width: 100%; height: 100%; object-fit: cover; object-position: center;';
     
     // 横長判定
     img.onload = function() {
@@ -296,10 +298,6 @@ function createPhotoBlock(photo, index) {
     caption.textContent = photo.caption || '';
     
     wrapper.appendChild(img);
-    block.appendChild(wrapper);
-    block.appendChild(caption);
-
-     wrapper.appendChild(img);
     block.appendChild(wrapper);
     block.appendChild(caption);
     
@@ -520,4 +518,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     console.log('[MAIN] Initialization complete');
-});
+    
+    // Ensure top page is active
+    setTimeout(function() {
+        document.getElementById('top-page').classList.add('active');
+        document.getElementById('album-page').classList.remove('active');
+        console.log('[MAIN] Page state set - top-page active');
+    }, 100);
+
+});  
