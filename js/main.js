@@ -448,50 +448,6 @@ if ('IntersectionObserver' in window) {
         });
     });
     
-document.addEventListener('DOMContentLoaded', () => {
-    const lazyImages = document.querySelectorAll('img[data-src]');
-    lazyImages.forEach(img => imageObserver.observe(img));
-});
-
-// ========================================
-// INITIALIZE
-// ========================================
-
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('[MAIN] Initializing...');
-    
-    // Load custom albums
-    loadCustomAlbums();
-    
-    // Initialize carousel
-    if (typeof Swiper !== 'undefined') {
-        const swiper = new Swiper('.album-carousel', {
-            effect: 'coverflow',
-            grabCursor: true,
-            centeredSlides: true,
-            slidesPerView: 'auto',
-            spaceBetween: 30,
-            loop: false,
-            coverflowEffect: {
-                rotate: 20,
-                stretch: 80,
-                depth: 200,
-                modifier: 1,
-                slideShadows: true,
-            },
-            speed: 600
-        });
-    }
-    
-    // Setup click handlers
-    setupAlbumClickHandlers();
-    
-    // Lazy load images
-    const lazyImages = document.querySelectorAll('img[data-src]');
-    lazyImages.forEach(img => imageObserver.observe(img));
-    
-    console.log('[MAIN] Initialization complete');
-});
 
 
 // ========================================
@@ -565,4 +521,3 @@ document.addEventListener('DOMContentLoaded', function() {
     
     console.log('[MAIN] Initialization complete');
 });
-// ========================================
