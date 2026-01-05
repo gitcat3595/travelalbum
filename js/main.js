@@ -283,6 +283,14 @@ function createPhotoBlock(photo, index) {
     img.alt = photo.caption;
     img.loading = 'lazy';
     
+    // 横長判定
+    img.onload = function() {
+        if (this.width > this.height) {
+            block.classList.add('landscape');
+        }
+    };
+
+    
     // Add error handling for missing images
     img.onerror = function() {
         this.src = 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&h=800&fit=crop';
